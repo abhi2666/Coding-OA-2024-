@@ -1,38 +1,31 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-int countOnes(string& s){
-    int cnt = 0;
-    for(auto ch : s){
-        if(ch=='1') cnt++;
-    }
-    return cnt;
-}
-int main()
+int minimiseZ(vector<int> &a)
 {
-    int t;
-    cin >> t;
-    while (t--)
+    sort(a.begin(), a.end());
+    for(auto ele : a) cout<<ele<<" ";
+    cout<<endl;
+    // for negative multiply with max ele
+    int ans = a[0], n = a.size();
+    // now pick smallest number from left
+    if (ans < 0)
     {
-        //make a max zero counter
-        int cnt = 0;
-        int n;
-        cin>>n;
-        string s;
-        cin>>s;
-        int ones = countOnes(s);
-        int mx = 0;
-        for(auto ch : s){
-            if(ch=='0'){
-                cnt++;
-                mx = max(mx, cnt);
-            }
-            else{
-                cnt = 0;
-            }
+        for (int i = n - 1; i >= 1; i--)
+        {
+            if (a[i] > 0)
+                return a[i] * ans;
         }
-        cout<<mx+ones<<endl;
-
+        return ans * a[1];
     }
+    else
+    {
+        return ans * a[1];
+    }
+}
+
+int main(){
+    vector<int>a = {-1, -2, -3, -4, -5};
+    cout<<minimiseZ(a)<<endl;
     return 0;
 }
