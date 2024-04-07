@@ -36,6 +36,7 @@ public:
             }
         }
 
+    // handling the casess when we have (  and * left... we have to make sure for every (, a * exist on the right side of it so that we can make a pair of it and remove it. 
         while (!open.empty() && !stars.empty())
         {
             if (open.top() < stars.top())
