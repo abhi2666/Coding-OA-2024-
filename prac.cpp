@@ -1,55 +1,24 @@
-// class Solution {
-//  public:
-//   int openLock(vector<string>& deadends, string target) {
-//     unordered_set<string> seen{deadends.begin(), deadends.end()};
-//     if (seen.count("0000"))
-//       return -1;
-//     if (target == "0000")
-//       return 0;
+class Solution {
+public:
+    vector<int> getMaximumXor(vector<int>& nums, int maximumBit) {
+        int maxXor = pow(2, maximumBit) - 1; // Maximum XOR value based on maximumBit
 
-//     int ans = 0;
-//     queue<string> q{{"0000"}};
+        vector<int> runXor;
+        int val = 0;
+        for (int num : nums) {
+            val ^= num;
+            runXor.push_back(val);
+        }
 
-//     while (!q.empty()) {
-//       ++ans;
-//       for (int sz = q.size(); sz > 0; --sz) {
-//         string word = q.front();
-//         q.pop();
-//         for (int i = 0; i < 4; ++i) {
-//           const char cache = word[i];
-//           // Increase the i-th digit by 1.
-//           word[i] = word[i] == '9' ? '0' : word[i] + 1;
-//           if (word == target)
-//             return ans;
-//           if (!seen.count(word)) {
-//             q.push(word);
-//             seen.insert(word);
-//           }
-//           // going in both the directions... up and down
-//           //now going down
-//           word[i] = cache;
-//           // Decrease the i-th digit by 1.
-//           word[i] = word[i] == '0' ? '9' : word[i] - 1;
-//           if (word == target)
-//             return ans;
-//           if (!seen.count(word)) {
-//             q.push(word);
-//             seen.insert(word);
-//           }
-//           word[i] = cache;
-//         }
-//       }
-//     }
+        vector<int> ans;
+        for (int i = runXor.size() - 1; i >= 0; i--) {
+            // For each prefix, find the maximum XOR value
+            // dry the for the test case {0, 1, 1, 3}
+            int prefixXor = runXor[i];
+            int xorWithMax = maxXor ^ prefixXor; // Find XOR with maximum possible XOR value
+            ans.push_back(xorWithMax);
+        }
 
-//     return -1;
-//   }
-// };
-
-#include <iostream>
-using namespace std;
-int main()
-{
-  int a = 0b001;
-  cout<<a<<endl;
-  return 0;
-}
+        return ans;
+    }
+};
