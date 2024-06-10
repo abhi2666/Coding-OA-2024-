@@ -3,7 +3,6 @@ All operations are in O(1) but takes O(2N) space where N -> number of elements i
 */
 
 class Solution{
-    int minEle;
     vector<pair<int, int>>st; // ele, currminEle
     public:
     
